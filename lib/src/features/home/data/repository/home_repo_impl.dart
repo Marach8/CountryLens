@@ -1,4 +1,3 @@
-import 'dart:developer' show log;
 import 'package:graphql_flutter/graphql_flutter.dart';
 import '../../../../global_export.dart';
 
@@ -32,7 +31,7 @@ class HomeRepoImpl implements HomeRepo {
         throw result.exception!;
       }
 
-      final List<dynamic> data = result.data?['countries'] ?? [];
+      final List<dynamic> data = result.data?['countries'] ?? <dynamic>[];
       final List<Country> countries = data.map((dynamic e) => Country.fromJson(e)).toList();
 
       return Successful<List<Country>>(data: countries);

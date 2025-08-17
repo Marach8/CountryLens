@@ -1,51 +1,60 @@
-// import '../global_export.dart';
+import '../global_export.dart';
 
-// class CLFilterWidget extends ConsumerWidget {
-//   final String title;
-//   final String providerId;
-//   final TextStyle? style;
-//   final String? padLeft, padRight;
+class CLFilterWidget<B extends BlocBase<String>> extends StatelessWidget{
 
-//   const CLFilterWidget({
-//     super.key,
-//     required this.title,
-//     required this.providerId,
-//     required this.style,
-//     this.padLeft, 
-//     this.padRight
-//   });
+  const CLFilterWidget({
+    super.key,
+    required this.title,
+    required this.style,
+    this.padLeft,
+    this.padRight,
+  });
+  final String title;
+  final TextStyle? style;
+  final String? padLeft, padRight;
 
-//   @override
-//   Widget build(context, ref) {
-//     final searchQuery = ref.watch(stringProvider(providerId));
-//     final listOfStrings = title.trim().split('');
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<B, String>(
+      builder: (_, String state) {
+        final Characters characters = title.trim().characters;
 
-//     return Text.rich(
-//       maxLines: 1,
-//       overflow: TextOverflow.ellipsis,
-//       TextSpan(
-//         children: [
-//           if(padLeft != null) TextSpan(
-//             text: padLeft,
-//             style:style                              
-//           ),
-//           ...listOfStrings.map(
-//             (stringOfText){
-//               final shouldHighlightString = searchQuery.contains(stringOfText.toLowerCase());
-//               return TextSpan(
-//                 text: stringOfText,
-//                 style: shouldHighlightString ? style?.copyWith(
-//                   color: CLColors.successColor
-//                 ) : style                              
-//               );
-//             }
-//           ),
-//           if(padRight != null) TextSpan(
-//             text: padRight,
-//             style:style                              
-//           ),
-//         ]
-//       )
-//     );
-//   }
-// }
+        return Text.rich(
+          TextSpan(
+            children: <InlineSpan>[
+              if (padLeft != null) TextSpan(
+                text: padLeft,
+                style: style,
+              ),
+              ...characters.map(
+                (String char) {
+                  final bool shouldHighlightString = state.toLowerCase().contains(char.toLowerCase());
+                  return TextSpan(
+                    text: char,
+                    style: shouldHighlightString 
+                      ? style?.copyWith(color: CLColors.hex307FE2)
+                      : style,
+                  );
+                },
+              ),
+              if (padRight != null) TextSpan(
+                text: padRight,
+                style: style,
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+
+
+class SearchkeyBloc extends Cubit<String>{
+  SearchkeyBloc() : super('');
+
+  void updateSearchKey(String searchKey) => emit(searchKey);
+
+  void resetSearch() => emit('');
+}

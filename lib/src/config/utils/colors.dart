@@ -10,5 +10,5 @@ class CLColors {
   static Color get hex1B1B1B => const Color(0XFF1B1B1B);
   static Color get hex9A9A9A => const Color(0XFF9A9A9A);
   static Color get hexBCBCBC => const Color(0XFFBCBCBC);
-  static Color get successColor => Colors.green;
+  static Color get hex307FE2 => const Color(0xFF307FE2);
 }

@@ -1,23 +1,18 @@
 import 'dart:ui';
 import 'package:countrylens/src/global_export.dart';
 import 'package:flutter/cupertino.dart' show CupertinoIcons;
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-
-class CLHomeScreen extends StatefulWidget {
+class CLHomeScreen extends StatelessWidget {
   const CLHomeScreen({super.key});
 
   @override
-  State<CLHomeScreen> createState() => _CLHomeScreenState();
-}
-
-class _CLHomeScreenState extends State<CLHomeScreen> {
-
-  @override
   Widget build(BuildContext _) {
-
-    return BlocProvider(
-      create: (_) => CountriesBloc(HomeRepoImpl()),
+    return MultiBlocProvider(
+      // ignore: always_specify_types
+      providers: [
+        BlocProvider<CountriesBloc>(create: (_) => CountriesBloc(HomeRepoImpl())),
+        BlocProvider<SearchkeyBloc>(create: (_) => SearchkeyBloc()),
+      ],
       child: Builder(
         builder: (BuildContext context) {
           WidgetsBinding.instance.addPostFrameCallback(
@@ -63,8 +58,8 @@ class _CLHomeScreenState extends State<CLHomeScreen> {
                       ),
                     )
                   ],
-          
-                  body: Container()
+                
+                  body: const CountriesList()
                 ),
               ),
             ),
