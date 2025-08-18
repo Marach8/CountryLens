@@ -13,13 +13,13 @@ class RenderACountry extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       border: Border.all(
         width: 0.2,
-        color: Theme.of(context).textTheme.headlineMedium?.color ?? CLColors.hex1B1B1B
+        color: context.textTheme.headlineMedium?.color ?? CLColors.hex1B1B1B
       ),
       child: Row(
         children: <Widget>[
           Text(
             country.emoji ?? '',
-            style: Theme.of(context).textTheme.displaySmall,
+            style: context.textTheme.displaySmall,
           ),
           const SizedBox(width: 15),
           Expanded(
@@ -29,16 +29,28 @@ class RenderACountry extends StatelessWidget {
               children: <Widget>[
                 CLFilterWidget<SearchkeyBloc>(
                   title: country.name ?? '',
-                  style: Theme.of(context).textTheme.titleSmall,
+                  style: context.textTheme.titleSmall,
                 ),
-                Text(
-                  country.capital ?? '',
-                  style: Theme.of(context).textTheme.labelMedium,
+                Row(
+                  children: <Widget>[
+                    Text(
+                      country.capital ?? '',
+                      style: context.textTheme.labelMedium,
+                    ),
+                    Expanded(
+                      child: Text(
+                        textAlign: TextAlign.end,
+                        country.continent ?? '',
+                        style: context.textTheme.labelMedium?.copyWith(
+                          color: context.textTheme.labelMedium?.color?.withValues(alpha: 0.6)
+                        ),
+                      ),
+                    ),
+                  ],
                 )
               ],
             ),
           ),
-          const SizedBox(width: 20),
         ],
       ),
     );

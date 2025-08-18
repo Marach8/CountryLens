@@ -5,7 +5,7 @@ class CLStrings{
 
   static const String AXIFORMA = 'Axiforma';
   static const String COUNTRY_XPLORER = 'Country Explorer';
-  static const String ENTER_SEARCH_KEY = 'Search countries...';
+  static const String SEARCH_COUNTRIES = 'Search countries...';
   static const String NO_SEARCH_RESULTS = 'No result(s) found for this search...';
   static const String ERROR_OCCURRED = 'An error occurred. Please try again later.';
   static const String NO_INTERNET = 'Please check your internet connection and try again!';

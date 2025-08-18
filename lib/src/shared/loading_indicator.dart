@@ -14,9 +14,9 @@ class CLLoadingIndicator extends StatelessWidget {
     return SizedBox(
       height: size, width: size,
       child: CircularProgressIndicator(
-        color: color ?? Theme.of(context).scaffoldBackgroundColor,
-        backgroundColor: (color ?? Theme.of(context)
-          .scaffoldBackgroundColor).withValues(alpha: 0.5),
+        color: color ?? context.textTheme.headlineMedium?.color,
+        backgroundColor: (color ?? context.textTheme.headlineMedium?.color)
+          ?.withValues(alpha: 0.5),
         strokeWidth: 3,
       ),
     );

@@ -4,7 +4,7 @@ sealed class CLAppState<T> {
   factory CLAppState.initialState() = InitialState<T>;
   factory CLAppState.loadingState() = LoadingState<T>;
   factory CLAppState.successState(T data, {String message}) = SuccessState<T>;
-  factory CLAppState.failureState(String message, {T oldData}) = FailureState<T>;
+  factory CLAppState.failureState(String message, {T oldData, FailureType type}) = FailureState<T>;
 }
 
 class InitialState<T> extends CLAppState<T> {
@@ -23,7 +23,21 @@ class SuccessState<T> extends CLAppState<T> {
 }
 
 class FailureState<T> extends CLAppState<T> {
-  const FailureState(this.message, {this.oldData});
+  const FailureState(
+    this.message, {
+    this.oldData,
+    this.type = FailureType.apiCallFailure
+  });
+
   final String message;
   final T? oldData;
+  final FailureType type;
+}
+
+
+
+enum FailureType {
+  apiCallFailure,
+  searchFailure,
+  unknownFailure
 }

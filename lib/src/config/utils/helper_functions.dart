@@ -1,17 +1,7 @@
 import 'dart:async';
-import 'dart:math';
 
 class CLHelperFuncs{
   const CLHelperFuncs._();
-
-  
-  static int getRandomNumber(double ceiling){
-    final int number = Random().nextInt(ceiling.toInt()) + 1;
-    if(number < 100){
-      return 100 + number;
-    }
-    return number;
-  }
 
 
   static Timer? _debounce;

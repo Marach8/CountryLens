@@ -1,12 +1,12 @@
 import 'dart:ui';
 import 'package:countrylens/src/global_export.dart';
-import 'package:flutter/cupertino.dart' show CupertinoIcons;
 
 class CLHomeScreen extends StatelessWidget {
   const CLHomeScreen({super.key});
 
   @override
   Widget build(BuildContext _) {
+    final double headerHeight = 70;
     return MultiBlocProvider(
       // ignore: always_specify_types
       providers: [
@@ -29,28 +29,37 @@ class CLHomeScreen extends StatelessWidget {
                       floating: true,
                       title: Text(
                         CLStrings.COUNTRY_XPLORER,
-                        style: Theme.of(context).textTheme.headlineMedium,
+                        style: context.textTheme.headlineMedium,
                       ),
                     ),
                 
                     SliverPersistentHeader(
                       pinned: true,
                       delegate: CLSliverHeader(
-                        maxExt: 70, minExt: 70,
+                        maxExt: headerHeight, minExt: headerHeight,
                         child: ClipRRect(
                           child: BackdropFilter(
                             filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-                            child: const CLContainer(
-                              height: 70,
-                              margin: EdgeInsets.symmetric(horizontal: 15),
-                              child: CLTextField(
-                                prefixIcon: Icon(CupertinoIcons.search, size: 20),
-                                enabled: true,
-                                hintText: CLStrings.ENTER_SEARCH_KEY,
-                                // onChanged: (text) => CLHelperFuncs.callDebouncer(
-                                //   500,
-                                //   () => ref.read(contactsProvider.notifier).filterContacts(text.trim())
-                                // )
+                            child: CLContainer(
+                              height: headerHeight,
+                              margin: const EdgeInsets.symmetric(horizontal: 15),
+                              child: BlocBuilder<CountriesBloc, CLAppState<List<Country>>>(
+                                builder: (_, CLAppState<List<Country>> state) {
+                                  final bool hasCountries = state is SuccessState<List<Country>> && state.data.isNotEmpty;
+                                  final bool isInSearchMode = state is FailureState<List<Country>> && state.type == FailureType.searchFailure;
+                                  return CLTextField(
+                                    prefixIcon: const Icon(Icons.search, size: 20),
+                                    enabled: hasCountries || isInSearchMode,
+                                    hintText: CLStrings.SEARCH_COUNTRIES,
+                                    onChanged: (String text) => CLHelperFuncs.callDebouncer(
+                                      500,
+                                      (){
+                                        context.read<CountriesBloc>().searchCountries(text);
+                                        context.read<SearchkeyBloc>().updateSearchKey(text);
+                                      }
+                                    )
+                                  );
+                                }
                               )
                             ),
                           ),

@@ -16,6 +16,7 @@ class CLApp extends StatelessWidget {
         textScaler: const TextScaler.linear(1),
       ),
       child: MaterialApp(
+        scaffoldMessengerKey: scaffoldMessengerKey,
         debugShowCheckedModeBanner: false,
         darkTheme: CLThemeData.darkTheme,
         theme: CLThemeData.lightTheme,
