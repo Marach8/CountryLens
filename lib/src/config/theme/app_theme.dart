@@ -11,7 +11,6 @@ class CLThemeData{
     textTheme: CLTextTheme.lightTextTheme,
     inputDecorationTheme: CLInputDecorationTheme.lightInputDecorationTheme,
     appBarTheme: CLAppBarTheme.lightAppBarTheme,
-    elevatedButtonTheme: CLElevatedButtonTheme.lightElevatedButtonTheme
   );
 
 
@@ -23,6 +22,5 @@ class CLThemeData{
     textTheme: CLTextTheme.darkTextTheme,
     inputDecorationTheme: CLInputDecorationTheme.darkInputDecorationTheme,
     appBarTheme: CLAppBarTheme.darkAppBarTheme,
-    elevatedButtonTheme: CLElevatedButtonTheme.darkElevatedButtonTheme,
   );
 }
