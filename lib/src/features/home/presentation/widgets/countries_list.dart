@@ -14,6 +14,7 @@ class CountriesList extends StatelessWidget {
           SuccessState<List<Country>>(data: final List<Country> countries, message: _) => CLRefreshIndicator(
             onRefresh: () => context.read<CountriesBloc>().fetchCountries(),
             child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.only(left: 15, right: 15),
               itemCount: countries.length,
               itemBuilder: (_, int index) {
@@ -22,33 +23,25 @@ class CountriesList extends StatelessWidget {
               },
             ),
           ),
-          FailureState<List<Country>>(message: final String msg, oldData: _, type: final FailureType type) => Center(
-            child: Builder(
-              builder: (_) {
-                if(msg.isNotEmpty){
-                  WidgetsBinding.instance.addPostFrameCallback(
-                    (_) => showNotification(text: msg, isSuccessful: false)
-                  );
-                }
-            
-                return switch(type){
-                  FailureType.apiCallFailure || FailureType.unknownFailure => RetryBtn(
-                    onRetry: () => context.read<CountriesBloc>().fetchCountries()
-                  ),
-                  FailureType.searchFailure => Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      const Icon(Icons.search_off_outlined, size: 100,),
-                      const SizedBox(height: 10,),
-                      Text(
-                        CLStrings.NO_SEARCH_RESULTS,
-                        style: context.textTheme.titleSmall,
-                      )
-                    ],
-                  ),
-                };
-              }
-            ),
+          FailureState<List<Country>>(message: _, oldData: _, type: final FailureType type) => Center(
+            child: switch(type){
+              FailureType.apiCallFailure || FailureType.unknownFailure => RetryBtn(
+                onRetry: () => context.read<CountriesBloc>().fetchCountries()
+              ),
+              FailureType.searchFailure => SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    const Icon(Icons.search_off_outlined, size: 100,),
+                    const SizedBox(height: 10,),
+                    Text(
+                      CLStrings.NO_SEARCH_RESULTS,
+                      style: context.textTheme.titleSmall,
+                    )
+                  ],
+                ),
+              ),
+            },
           ),
         };
       },

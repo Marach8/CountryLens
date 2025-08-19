@@ -9,4 +9,5 @@ class CLStrings{
   static const String NO_SEARCH_RESULTS = 'No result(s) found for this search...';
   static const String ERROR_OCCURRED = 'An error occurred. Please try again later.';
   static const String NO_INTERNET = 'Please check your internet connection and try again!';
+  static const String UNAVAILABLE = 'Not Available❗';
 }

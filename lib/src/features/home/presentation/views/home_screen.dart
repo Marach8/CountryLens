@@ -43,7 +43,14 @@ class CLHomeScreen extends StatelessWidget {
                             child: CLContainer(
                               height: headerHeight,
                               margin: const EdgeInsets.symmetric(horizontal: 15),
-                              child: BlocBuilder<CountriesBloc, CLAppState<List<Country>>>(
+                              child: BlocConsumer<CountriesBloc, CLAppState<List<Country>>>(
+                                listener: (_, CLAppState<List<Country>> state){
+                                  if(state is FailureState<List<Country>> && state.message.isNotEmpty){
+                                    WidgetsBinding.instance.addPostFrameCallback(
+                                      (_) => showNotification(text: state.message, isSuccessful: false)
+                                    );
+                                  }
+                                },
                                 builder: (_, CLAppState<List<Country>> state) {
                                   final bool hasCountries = state is SuccessState<List<Country>> && state.data.isNotEmpty;
                                   final bool isInSearchMode = state is FailureState<List<Country>> && state.type == FailureType.searchFailure;

@@ -8,8 +8,7 @@ class CLColors {
   static Color get red => const Color(0XFFFF2D55);
   static Color get transparent => Colors.transparent;
   static Color get hex1B1B1B => const Color(0XFF1B1B1B);
-  static Color get hex9A9A9A => const Color(0XFF9A9A9A);
-  static Color get hexBCBCBC => const Color(0XFFBCBCBC);
+  static Color get hex303439 => const Color(0xFF303439);
   static Color get hex307FE2 => const Color(0xFF307FE2);
   static Color get green => const Color(0XFF10B981);
 }

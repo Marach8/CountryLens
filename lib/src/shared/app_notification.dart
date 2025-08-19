@@ -26,8 +26,7 @@ Future<void> showNotification({
           ),
           child: CLContainer(
             margin: const EdgeInsets.only(left: 5),
-            radius: 8,
-            color: context.textTheme.headlineMedium?.color,
+            radius: 8, color: CLColors.hex303439,
             padding: const EdgeInsets.all(10),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -39,14 +38,14 @@ Future<void> showNotification({
                   child: Text(
                     text, maxLines: 3,
                     style: context.textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).scaffoldBackgroundColor
+                      color: CLColors.white
                     ),
                   ),
                 ),
                 const SizedBox(width: 20,),
-                GestureDetector(
+                InkWell(
                   onTap: () => scaffoldMessengerKey.currentState?.hideCurrentMaterialBanner(),
-                  child: Icon(Icons.close, color: Theme.of(context).scaffoldBackgroundColor),
+                  child: Icon(Icons.close, color: CLColors.white),
                 ),
               ],
             ),

@@ -28,21 +28,26 @@ class RenderACountry extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 CLFilterWidget<SearchkeyBloc>(
-                  title: country.name ?? '',
-                  style: context.textTheme.titleSmall,
+                  title: country.name ?? CLStrings.UNAVAILABLE,
+                  style: context.textTheme.titleSmall?.copyWith(
+                    color: country.name == null ? CLColors.red : null
+                  ),
                 ),
                 Row(
                   children: <Widget>[
                     Text(
-                      country.capital ?? '',
-                      style: context.textTheme.labelMedium,
+                      country.capital ?? CLStrings.UNAVAILABLE,
+                      style: context.textTheme.labelMedium?.copyWith(
+                        color: country.capital == null ? CLColors.red : null
+                      ),
                     ),
                     Expanded(
                       child: Text(
                         textAlign: TextAlign.end,
-                        country.continent ?? '',
+                        country.continent ?? CLStrings.UNAVAILABLE,
                         style: context.textTheme.labelMedium?.copyWith(
-                          color: context.textTheme.labelMedium?.color?.withValues(alpha: 0.6)
+                          color: country.continent == null ? CLColors.red 
+                          : context.textTheme.labelMedium?.color?.withValues(alpha: 0.6)
                         ),
                       ),
                     ),

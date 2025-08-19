@@ -35,6 +35,8 @@ class Unsuccessful<T> extends ApiResponse<T> {
 
 
 
+
+
 class CLException implements Exception {
   CLException(dynamic error, [StackTrace? stack])
     : _rawError = error, _stackTrace = stack;
@@ -48,15 +50,15 @@ class CLException implements Exception {
     if (_rawError == null) return CLStrings.ERROR_OCCURRED;
 
     if (_rawError is OperationException) {
-      final linkException = _rawError.linkException;
-      final graphqlErrors = _rawError.graphqlErrors;
+      final LinkException? linkException = _rawError.linkException;
+      final List<GraphQLError> graphqlErrors = _rawError.graphqlErrors;
 
       if (linkException != null) {
         return CLStrings.NO_INTERNET;
       }
 
       if (graphqlErrors.isNotEmpty) {
-        return graphqlErrors.map((e) => e.message).join(', ');
+        return graphqlErrors.map((GraphQLError e) => e.message).join(', ');
       }
 
       return 'GraphQL error: ${_rawError.toString()}';

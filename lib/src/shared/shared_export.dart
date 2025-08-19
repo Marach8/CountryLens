@@ -5,6 +5,6 @@ export 'text_field.dart';
 export 'sliver_header_delegate.dart';
 export 'loading_indicator.dart';
 export 'scroll_bar.dart';
-export 'notification_dialog.dart';
+export 'app_notification.dart';
 export 'refresh_indicator.dart';
 export 'retry_btn.dart';
